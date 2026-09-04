@@ -1,0 +1,6 @@
+agentic_compositions/
+__pycache__/
+.env
+.DS_Store
+results/*.json
+results/*.png

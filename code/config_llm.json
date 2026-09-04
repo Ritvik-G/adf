@@ -1,0 +1,9 @@
+{
+  "model": "openai/gpt-oss-20b",
+  "url": "https://api.groq.com/openai/v1/chat/completions",
+  "ollama_models": ["llama3.2:1b", "qwen2-math:1.5b", "phi4-mini:3.8b"],
+  "ollama_url": "http://localhost:11434",
+  "temperature": 0.7,
+  "max_tokens": 256,
+  "top_p": 1.0
+}

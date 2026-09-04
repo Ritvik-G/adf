@@ -1,0 +1,6 @@
+flask
+requests
+psutil
+numpy
+matplotlib
+python-dotenv
