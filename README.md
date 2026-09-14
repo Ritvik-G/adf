@@ -1,4 +1,4 @@
-# Agentic Decision Framework
+# Architectural Decision Framework
 
 A benchmark comparing five distinct ways of invoking the same deterministic action — evaluating a mathematical expression — as a stand-in for the architectural choices an agentic system makes when deciding how to execute a tool call:
 
