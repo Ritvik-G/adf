@@ -6,9 +6,12 @@ Supports multiple evaluation methods: vanilla eval, REST API, SOAP, and LLMs
 import argparse
 import re
 import time
+from functools import partial
 import requests
 from rest_client import evaluate_expression
 from soap_client import evaluate_expression as soap_evaluate_expression
+from mcp_client import connect, evaluate_expression as mcp_evaluate_expression
+from mcp_agent import run_agent, tools_for_llm, chat_groq, groq_tool_message, chat_ollama, ollama_tool_message
 from config import load_dataset, load_llm_config
 
 # ============================================================================
@@ -50,7 +53,7 @@ def rest_calls(equation=None, verbose=False):
     Returns:
         float: Result of the equation
     """
-    API_BASE_URL = "http://localhost:5000"
+    API_BASE_URL = "http://localhost:5001"
 
     if equation is None:
         # Interactive mode
@@ -98,6 +101,27 @@ def soap_arch(equation=None, verbose=False):
         return None
 
 
+def mcp_arch(equation=None, session=None, verbose=False):
+    """
+    Evaluate equation using MCP tool calls (no LLM)
+
+    Args:
+        equation (str): Mathematical equation to evaluate
+        session (MCPSession): Open session from mcp_client.connect()
+
+    Returns:
+        float: Result of the equation
+    """
+    if equation is None:
+        raise ValueError("Equation not provided")
+
+    try:
+        return mcp_evaluate_expression(equation, session, verbose=verbose)
+    except Exception as e:
+        print(f"MCP Error: {e}")
+        return None
+
+
 def extract_number(text):
     """
     Diagnostic-only: pull a numeric value out of free-form text, e.g.
@@ -135,7 +159,7 @@ def llms_groq(equation=None):
     if not api_key or not model:
         raise ValueError("Config must include 'api_key' and 'model'")
 
-    prompt = f"Give the number only as the output for the following equation: {equation}"
+    prompt = f"Answer with ONLY the final numerical value, no explanations or equations. QUESTION: {equation}\nANSWER:"
 
     headers = {
         "Content-Type": "application/json",
@@ -185,7 +209,8 @@ def llm_ollama(equation=None, model=None):
         "model": model,
         "prompt": prompt,
         "stream": False,
-        "temperature": cfg.get("temperature", 0.7),
+        # Ollama only reads sampling settings from "options"
+        "options": {"temperature": cfg.get("temperature", 0.7)},
     }
 
     try:
@@ -287,12 +312,15 @@ METHODS = {
     "ollama": llm_ollama,
 }
 
+# These need an open MCP session, so main() builds them inside connect()
+MCP_METHODS = ["mcp", "mcp_agent_groq", "mcp_agent_ollama"]
+
 
 def main():
     parser = argparse.ArgumentParser(description="Run one evaluation method over the dataset")
     parser.add_argument(
         "--method",
-        choices=sorted(METHODS.keys()),
+        choices=sorted(list(METHODS) + MCP_METHODS),
         required=True,
         help="Which evaluation method to run",
     )
@@ -313,12 +341,28 @@ def main():
     print(f"Method: {args.method}  |  Evaluating {n} equations")
     print(f"{'='*60}\n")
 
-    if args.method == "ollama" and args.ollama_model:
-        func = lambda equation=None: llm_ollama(equation=equation, model=args.ollama_model)
+    if args.method in MCP_METHODS:
+        cfg = load_llm_config()
+        with connect() as session:
+            tools = tools_for_llm(session)
+            if args.method == "mcp":
+                func = lambda equation=None: mcp_arch(equation=equation, session=session)
+            elif args.method == "mcp_agent_groq":
+                func = lambda equation=None: run_agent(
+                    equation, session, partial(chat_groq, temperature=cfg["temperature"]), groq_tool_message, tools, cfg["agent_max_steps"]
+                )[0]
+            else:
+                model = args.ollama_model or cfg["ollama_agent_models"][0]
+                func = lambda equation=None: run_agent(
+                    equation, session, partial(chat_ollama, model=model, temperature=cfg["temperature"]), ollama_tool_message, tools, cfg["agent_max_steps"]
+                )[0]
+            metrics = measurements(func, n, data)
     else:
-        func = METHODS[args.method]
-
-    metrics = measurements(func, n, data)
+        if args.method == "ollama" and args.ollama_model:
+            func = lambda equation=None: llm_ollama(equation=equation, model=args.ollama_model)
+        else:
+            func = METHODS[args.method]
+        metrics = measurements(func, n, data)
 
     print(f"\n{'='*60}")
     print("RESULTS:")

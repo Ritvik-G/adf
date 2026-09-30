@@ -1,9 +1,12 @@
 {
   "model": "openai/gpt-oss-20b",
   "url": "https://api.groq.com/openai/v1/chat/completions",
-  "ollama_models": ["llama3.2:1b", "qwen2-math:1.5b", "phi4-mini:3.8b"],
+  "ollama_models": ["llama3.2:1b", "qwen2-math:1.5b", "phi4-mini:3.8b", "llama3.2:3b", "granite4:3b"],
+  "ollama_agent_models": ["llama3.2:1b", "phi4-mini:3.8b", "llama3.2:3b", "qwen3.5:4b", "granite4:3b"],
   "ollama_url": "http://localhost:11434",
   "temperature": 0.7,
   "max_tokens": 256,
-  "top_p": 1.0
+  "top_p": 1.0,
+  "agent_max_steps": 6,
+  "temperatures": [0.0, 0.7]
 }

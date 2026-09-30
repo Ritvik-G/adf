@@ -1,7 +1,8 @@
 """
 Comparative Benchmark for Mathematical Expression Evaluators
 Runs methods and saves metrics to JSON. No plotting here — run
-plot_results.py separately once you have the results you want charted.
+paper_figures.py (paper figures and table) or plot_results.py (quick look)
+separately once you have the results you want charted.
 """
 
 import argparse
@@ -12,13 +13,18 @@ import subprocess
 import threading
 import time
 import datetime
+from functools import partial
 import requests
 
 from main import vanilla, rest_calls, soap_arch, extract_number, classify_result
 from config import load_dataset, load_llm_config
 from monitor import SystemMonitor
+from mcp_client import connect
+from main import mcp_arch
+from mcp_agent import run_agent, tools_for_llm, chat_groq, groq_tool_message, chat_ollama, ollama_tool_message
 
 RESULTS_DIR = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "results")
+MCP_SERVER_URL = "http://localhost:8100"
 
 
 # ============================================================================
@@ -137,7 +143,7 @@ def llms_groq_instrumented(equation=None):
 # only sees the cost of sending the request and waiting for a reply.
 # ============================================================================
 
-def llm_ollama_instrumented(equation=None, model=None):
+def llm_ollama_instrumented(equation=None, model=None, temperature=None):
     """
     Like llm_ollama in main.py, but also returns Ollama's own server-side
     timing fields from the API response.
@@ -150,6 +156,9 @@ def llm_ollama_instrumented(equation=None, model=None):
     model = model or cfg.get("ollama_models", ["mistral"])[0]
     base_url = cfg.get("ollama_url", "http://localhost:11434")
 
+    if temperature is None:
+        temperature = cfg.get("temperature", 0.7)
+
     prompt = f"Answer with ONLY the final numerical value, no explanations or equations. QUESTION: {equation}\nANSWER:"
 
     url = f"{base_url}/api/generate"
@@ -157,7 +166,9 @@ def llm_ollama_instrumented(equation=None, model=None):
         "model": model,
         "prompt": prompt,
         "stream": False,
-        "temperature": cfg.get("temperature", 0.7),
+        # Ollama only reads sampling settings from "options"; a top-level
+        # "temperature" is silently ignored.
+        "options": {"temperature": temperature},
     }
 
     try:
@@ -206,7 +217,7 @@ def fetch_server_metrics(base_url):
 # Core benchmark runner
 # ============================================================================
 
-def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False, server_url=None):
+def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False, is_agent=False, server_url=None):
     """
     Run a single evaluation method over n samples and collect all metrics.
 
@@ -221,6 +232,9 @@ def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False,
         is_ollama (bool): If True, func returns (result, timing_dict) and Ollama's
             own server-side timing fields (real inference cost, not the
             client's proxy for it) are aggregated.
+        is_agent (bool): If True (used with is_groq or is_ollama), the returned
+            dict also carries MCP agent counts (llm_turns, tool_calls, ...),
+            which are aggregated too.
         server_url (str): If set, fetch this server's own /metrics before and
             after the run, to report server-side CPU/memory separately from
             client-side CPU/memory.
@@ -251,26 +265,32 @@ def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False,
         "eval_count": 0,
         "eval_duration_ns": 0,
     }
+    total_agent = {"llm_turns": 0, "tool_calls": 0, "tool_errors": 0, "no_tool_answers": 0, "max_steps_exceeded": 0}
 
     for i in range(min(n, len(dataset))):
         item = dataset[i]
         equation = item.get("Equation", "")
         expected = item.get("Answer", "")
+        stats = {}
 
         try:
             if is_groq:
-                result, usage = func(equation=equation)
+                result, stats = func(equation=equation)
                 for k in total_tokens:
-                    total_tokens[k] += usage.get(k, 0)
+                    total_tokens[k] += stats.get(k, 0)
             elif is_ollama:
-                result, timing = func(equation=equation)
+                result, stats = func(equation=equation)
                 for k in total_ollama_timing:
-                    total_ollama_timing[k] += timing.get(k, 0)
+                    total_ollama_timing[k] += stats.get(k, 0)
             else:
                 result = func(equation=equation)
         except Exception as e:
             print(f"  ❌  API_ERROR {equation!r}: {e}")
             result = None
+
+        if is_agent:
+            for k in total_agent:
+                total_agent[k] += stats.get(k, 0)
 
         category = classify_result(result, expected)
         counts[category] += 1
@@ -320,6 +340,11 @@ def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False,
         eval_s = total_ollama_timing["eval_duration_ns"] / 1e9
         result["ollama_tokens_per_sec"] = round(total_ollama_timing["eval_count"] / eval_s, 2) if eval_s > 0 else None
 
+    if is_agent:
+        result["agent"] = total_agent
+        result["avg_tool_calls"] = round(total_agent["tool_calls"] / n, 3) if n > 0 else 0
+        result["avg_llm_turns"] = round(total_agent["llm_turns"] / n, 3) if n > 0 else 0
+
     print(
         f"  ✓  Accuracy: {accuracy:.1f}%  |  Time: {total_time:.2f}s"
         f"  |  Client CPU: {client_stats['avg_cpu_percent']}%"
@@ -334,6 +359,8 @@ def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False,
             f"  |  {tps if tps is not None else 'n/a'} tok/s"
             f"  |  total_duration: {total_ollama_timing['total_duration_ns'] / 1e9:.2f}s"
         )
+    if is_agent:
+        print(f"  ✓  Agent: {total_agent}  |  avg tool calls: {result['avg_tool_calls']}  |  avg LLM turns: {result['avg_llm_turns']}")
     if server_url:
         print(f"  ✓  Server-side: {result.get('server')}")
     if watt_stats["avg_cpu_power_mw"] is not None:
@@ -349,10 +376,13 @@ def run_benchmark(method_name, func, n, dataset, is_groq=False, is_ollama=False,
 # ============================================================================
 
 def check_server(url, timeout=2):
-    """Return True if the URL responds within timeout seconds."""
+    """
+    Return True if the URL answers 200 within timeout seconds. A 200 is
+    required, not just any reply: another program on the same port (e.g.
+    macOS's AirPlay Receiver on 5000) would otherwise pass as our server.
+    """
     try:
-        requests.get(url, timeout=timeout)
-        return True
+        return requests.get(url, timeout=timeout).status_code == 200
     except Exception:
         return False
 
@@ -388,14 +418,14 @@ def run_vanilla(n, data, args):
 
 
 def run_rest(n, data, args):
-    if not check_server("http://localhost:5000"):
-        print("\n[SKIP] REST server not reachable at localhost:5000 — start rest_server.py first")
+    if not check_server("http://localhost:5001/metrics"):
+        print("\n[SKIP] REST server not reachable at localhost:5001 — start rest_server.py first")
         return None
-    return run_benchmark("rest", rest_calls, n, data, server_url="http://localhost:5000")
+    return run_benchmark("rest", rest_calls, n, data, server_url="http://localhost:5001")
 
 
 def run_soap(n, data, args):
-    if not check_server("http://localhost:8000"):
+    if not check_server("http://localhost:8000/metrics"):
         print("\n[SKIP] SOAP server not reachable at localhost:8000 — start soap_server.py first")
         return None
     return run_benchmark("soap", soap_arch, n, data, server_url="http://localhost:8000")
@@ -415,30 +445,133 @@ def run_groq(n, data, args):
 
 def run_ollama(n, data, args):
     """
-    Runs every model in config_llm.json's "ollama_models" list, each as its
-    own result (method name "ollama_llm:<model>") — unless --ollama-model
-    overrides it to a single model. Returns a list of result dicts (or None
-    if Ollama itself isn't reachable).
+    Runs every model in config_llm.json's "ollama_models" list (unless
+    --ollama-model overrides it to a single model), once per temperature in
+    "temperatures". Each is its own result, method name
+    "ollama_llm:<model>:T<temp>".
+    A generator: yields each result as soon as it finishes, so main()
+    saves it straight away.
     """
     if not check_server("http://localhost:11434"):
         print("\n[SKIP] Ollama not reachable at localhost:11434 — start Ollama first")
-        return None
+        return
 
     cfg = load_llm_config()
     models = [args.ollama_model] if getattr(args, "ollama_model", None) else cfg.get("ollama_models", ["mistral"])
 
-    results = []
     for model in models:
-        results.append(
-            run_benchmark(
-                f"ollama_llm:{model}",
-                lambda equation=None, m=model: llm_ollama_instrumented(equation=equation, model=m),
+        if not ollama_has_model(model):
+            print(f"\n[SKIP] Ollama model {model} not pulled — run `ollama pull {model}` first")
+            continue
+        for temperature in cfg["temperatures"]:
+            result = run_benchmark(
+                f"ollama_llm:{model}:T{temperature}",
+                lambda equation=None, m=model, t=temperature: llm_ollama_instrumented(
+                    equation=equation, model=m, temperature=t
+                ),
                 n,
                 data,
                 is_ollama=True,
             )
+            result["temperature"] = temperature
+            yield result
+
+
+def run_mcp(n, data, args):
+    if not check_server(f"{MCP_SERVER_URL}/metrics"):
+        print("\n[SKIP] MCP server not reachable at localhost:8100 — start mcp_server.py first")
+        return None
+    with connect() as session:
+        return run_benchmark(
+            "mcp",
+            lambda equation=None: mcp_arch(equation=equation, session=session),
+            n,
+            data,
+            server_url=MCP_SERVER_URL,
         )
-    return results
+
+
+def run_mcp_agent_groq(n, data, args):
+    """
+    Runs the Groq agent once per temperature in config_llm.json's
+    "temperatures" (method name "mcp_agent_groq:T<temp>").
+    A generator: yields each result as soon as it finishes, so main()
+    saves it straight away.
+    """
+    if not check_server(f"{MCP_SERVER_URL}/metrics"):
+        print("\n[SKIP] MCP server not reachable at localhost:8100 — start mcp_server.py first")
+        return
+    cfg = load_llm_config()
+    if not cfg.get("api_key") or not cfg.get("model"):
+        print("\n[SKIP] MCP agent (Groq): missing GROQ_API_KEY (.env) or model in config_llm.json")
+        return
+
+    with connect() as session:
+        tools = tools_for_llm(session)
+        for temperature in cfg["temperatures"]:
+            chat = partial(chat_groq, temperature=temperature)
+            result = run_benchmark(
+                f"mcp_agent_groq:T{temperature}",
+                lambda equation=None, chat=chat: run_agent(
+                    equation, session, chat, groq_tool_message, tools, cfg["agent_max_steps"]
+                ),
+                n,
+                data,
+                is_groq=True,
+                is_agent=True,
+                server_url=MCP_SERVER_URL,
+            )
+            result["temperature"] = temperature
+            yield result
+
+
+def ollama_has_model(model):
+    """Return True if this model is pulled in the local Ollama."""
+    r = requests.get("http://localhost:11434/api/tags", timeout=2)
+    names = [m["name"] for m in r.json().get("models", [])]
+    return model in names or f"{model}:latest" in names
+
+
+def run_mcp_agent_ollama(n, data, args):
+    """
+    Runs every model in config_llm.json's "ollama_agent_models" list (unless
+    --ollama-model overrides it to a single model), once per temperature in
+    "temperatures". Each is its own result, method name
+    "mcp_agent_ollama:<model>:T<temp>".
+    A generator: yields each result as soon as it finishes, so main()
+    saves it straight away.
+    """
+    if not check_server(f"{MCP_SERVER_URL}/metrics"):
+        print("\n[SKIP] MCP server not reachable at localhost:8100 — start mcp_server.py first")
+        return
+    if not check_server("http://localhost:11434"):
+        print("\n[SKIP] Ollama not reachable at localhost:11434 — start Ollama first")
+        return
+
+    cfg = load_llm_config()
+    models = [args.ollama_model] if getattr(args, "ollama_model", None) else cfg["ollama_agent_models"]
+
+    with connect() as session:
+        tools = tools_for_llm(session)
+        for model in models:
+            if not ollama_has_model(model):
+                print(f"\n[SKIP] Ollama model {model} not pulled — run `ollama pull {model}` first")
+                continue
+            for temperature in cfg["temperatures"]:
+                chat = partial(chat_ollama, model=model, temperature=temperature)
+                result = run_benchmark(
+                    f"mcp_agent_ollama:{model}:T{temperature}",
+                    lambda equation=None, chat=chat: run_agent(
+                        equation, session, chat, ollama_tool_message, tools, cfg["agent_max_steps"]
+                    ),
+                    n,
+                    data,
+                    is_ollama=True,
+                    is_agent=True,
+                    server_url=MCP_SERVER_URL,
+                )
+                result["temperature"] = temperature
+                yield result
 
 
 METHOD_RUNNERS = {
@@ -447,6 +580,9 @@ METHOD_RUNNERS = {
     "soap": run_soap,
     "groq": run_groq,
     "ollama": run_ollama,
+    "mcp": run_mcp,
+    "mcp_agent_groq": run_mcp_agent_groq,
+    "mcp_agent_ollama": run_mcp_agent_ollama,
 }
 
 
@@ -455,9 +591,9 @@ METHOD_RUNNERS = {
 # ============================================================================
 
 def print_summary_table(results):
-    print(f"\n{'='*128}")
-    print(f"{'Method':<20} {'Accuracy':>10} {'Time(s)':>10} {'CPU%':>8} {'CPU-s':>8} {'Mem(MB)':>10} {'Tokens/tok-per-s':>18}  {'Failures (wrong/format/api_error)':>34}")
-    print(f"{'-'*128}")
+    print(f"\n{'='*142}")
+    print(f"{'Method':<34} {'Accuracy':>10} {'Time(s)':>10} {'CPU%':>8} {'CPU-s':>8} {'Mem(MB)':>10} {'Tokens/tok-per-s':>18}  {'Failures (wrong/format/api_error)':>34}")
+    print(f"{'-'*142}")
     for r in results:
         if "tokens" in r:
             tok = str(r["tokens"].get("total_tokens", "-"))
@@ -469,7 +605,7 @@ def print_summary_table(results):
         f = r["failures"]
         fail_str = f"{f['wrong_answer']}/{f['format_failure']}/{f['api_error']}"
         print(
-            f"{r['method']:<20}"
+            f"{r['method']:<34}"
             f" {r['accuracy']:>9.1f}%"
             f" {r['total_time_s']:>10.2f}"
             f" {r['avg_cpu_percent']:>7.1f}%"
@@ -478,7 +614,7 @@ def print_summary_table(results):
             f"  {tok:>18}"
             f"  {fail_str:>34}"
         )
-    print(f"{'='*128}\n")
+    print(f"{'='*142}\n")
 
 
 def main():
@@ -507,27 +643,27 @@ def main():
 
     methods_to_run = list(METHOD_RUNNERS) if args.method == "all" else [args.method]
 
-    new_results = []
+    # Merge into the running combined file — lets you build up vanilla/rest/soap/
+    # ollama/groq one `--method` at a time instead of needing them all in one pass.
+    combined = load_latest()
     for method in methods_to_run:
         r = METHOD_RUNNERS[method](n, data, args)
         if r is None:
             continue
-        for res in (r if isinstance(r, list) else [r]):
-            new_results.append(res)
+        # A runner returns one result, or (Ollama and MCP agents) a generator
+        # yielding results one by one. Each is saved as soon as it arrives,
+        # so a long run that gets interrupted keeps everything finished so far.
+        for res in ([r] if isinstance(r, dict) else r):
             safe_name = res["method"].replace(":", "-")
             save_result(res, os.path.join(RESULTS_DIR, f"run_{timestamp}_{safe_name}.json"))
+            combined = upsert_result(combined, res)
+            combined["timestamp"] = timestamp
+            combined["n"] = n
+            save_result(combined, os.path.join(RESULTS_DIR, "latest.json"))
 
-    # Merge into the running combined file — lets you build up vanilla/rest/soap/
-    # ollama/groq one `--method` at a time instead of needing them all in one pass.
-    combined = load_latest()
-    for r in new_results:
-        combined = upsert_result(combined, r)
-    combined["timestamp"] = timestamp
-    combined["n"] = n
     save_result(combined, os.path.join(RESULTS_DIR, f"benchmark_{timestamp}.json"))
-    save_result(combined, os.path.join(RESULTS_DIR, "latest.json"))
     print(f"\n  Latest results → {os.path.join(RESULTS_DIR, 'latest.json')}  ({len(combined['results'])} methods so far)")
-    print("  Run `python plot_results.py` separately to (re)generate charts from latest.json.")
+    print("  Run `python paper_figures.py` to (re)generate the paper figures and table from latest.json.")
 
     print_summary_table(combined["results"])
 
