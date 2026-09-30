@@ -1,0 +1,37 @@
+{
+  "method": "rest",
+  "n": 1000,
+  "correct": 1000,
+  "errors": 0,
+  "failures": {
+    "wrong_answer": 0,
+    "format_failure": 0,
+    "api_error": 0
+  },
+  "accuracy": 100.0,
+  "total_time_s": 2.2474,
+  "avg_time_per_sample_s": 0.002247,
+  "client": {
+    "avg_cpu_percent": 55.34,
+    "peak_cpu_percent": 107.3,
+    "avg_memory_mb": 77.18,
+    "peak_memory_mb": 77.22,
+    "cpu_seconds": 1.0782
+  },
+  "power": {
+    "avg_cpu_power_mw": null,
+    "peak_cpu_power_mw": null
+  },
+  "avg_cpu_percent": 55.34,
+  "peak_cpu_percent": 107.3,
+  "avg_memory_mb": 77.18,
+  "peak_memory_mb": 77.22,
+  "cpu_seconds": 1.0782,
+  "server": {
+    "avg_cpu_percent": 36.11,
+    "avg_memory_mb": 42.07,
+    "cpu_seconds": 0.6166,
+    "peak_cpu_percent": 121.9,
+    "peak_memory_mb": 42.16
+  }
+}

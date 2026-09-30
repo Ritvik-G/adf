@@ -1,0 +1,56 @@
+{
+  "method": "mcp_agent_ollama:qwen2-math:1.5b:T0.7",
+  "n": 1000,
+  "correct": 0,
+  "errors": 1000,
+  "failures": {
+    "wrong_answer": 0,
+    "format_failure": 0,
+    "api_error": 1000
+  },
+  "accuracy": 0.0,
+  "total_time_s": 4.798,
+  "avg_time_per_sample_s": 0.004798,
+  "client": {
+    "avg_cpu_percent": 28.55,
+    "peak_cpu_percent": 99.9,
+    "avg_memory_mb": 65.14,
+    "peak_memory_mb": 65.14,
+    "cpu_seconds": 1.1356
+  },
+  "power": {
+    "avg_cpu_power_mw": null,
+    "peak_cpu_power_mw": null
+  },
+  "avg_cpu_percent": 28.55,
+  "peak_cpu_percent": 99.9,
+  "avg_memory_mb": 65.14,
+  "peak_memory_mb": 65.14,
+  "cpu_seconds": 1.1356,
+  "server": {
+    "avg_cpu_percent": 6.47,
+    "peak_cpu_percent": 108.1,
+    "avg_memory_mb": 29.4,
+    "peak_memory_mb": 29.41,
+    "cpu_seconds": 0.0067
+  },
+  "ollama_timing": {
+    "total_duration_ns": 0,
+    "load_duration_ns": 0,
+    "prompt_eval_count": 0,
+    "prompt_eval_duration_ns": 0,
+    "eval_count": 0,
+    "eval_duration_ns": 0
+  },
+  "ollama_tokens_per_sec": null,
+  "agent": {
+    "llm_turns": 0,
+    "tool_calls": 0,
+    "tool_errors": 0,
+    "no_tool_answers": 0,
+    "max_steps_exceeded": 0
+  },
+  "avg_tool_calls": 0.0,
+  "avg_llm_turns": 0.0,
+  "temperature": 0.7
+}

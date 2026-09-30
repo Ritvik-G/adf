@@ -2,5 +2,13 @@ agentic_compositions/
 __pycache__/
 .env
 .DS_Store
-results/*.json
+
+# Results: only the paper's results are committed (latest.json, run_*.json, figures/)
+results/benchmark_*.json
+results/test_runs_n20/
+results/images/
 results/*.png
+
+# Paper sources kept locally, not in the repo
+/*.zip
+/*.tex

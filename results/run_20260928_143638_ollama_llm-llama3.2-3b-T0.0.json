@@ -1,0 +1,40 @@
+{
+  "method": "ollama_llm:llama3.2:3b:T0.0",
+  "n": 1000,
+  "correct": 743,
+  "errors": 257,
+  "failures": {
+    "wrong_answer": 249,
+    "format_failure": 8,
+    "api_error": 0
+  },
+  "accuracy": 74.3,
+  "total_time_s": 157.2693,
+  "avg_time_per_sample_s": 0.157269,
+  "client": {
+    "avg_cpu_percent": 2.65,
+    "peak_cpu_percent": 105.8,
+    "avg_memory_mb": 27.16,
+    "peak_memory_mb": 27.33,
+    "cpu_seconds": 3.8487
+  },
+  "power": {
+    "avg_cpu_power_mw": null,
+    "peak_cpu_power_mw": null
+  },
+  "avg_cpu_percent": 2.65,
+  "peak_cpu_percent": 105.8,
+  "avg_memory_mb": 27.16,
+  "peak_memory_mb": 27.33,
+  "cpu_seconds": 3.8487,
+  "ollama_timing": {
+    "total_duration_ns": 151498906457,
+    "load_duration_ns": 3798983450,
+    "prompt_eval_count": 55681,
+    "prompt_eval_duration_ns": 88956063000,
+    "eval_count": 3574,
+    "eval_duration_ns": 57231686885
+  },
+  "ollama_tokens_per_sec": 62.45,
+  "temperature": 0.0
+}

@@ -1,0 +1,1219 @@
+{
+  "timestamp": "20260928_143638",
+  "n": 1000,
+  "results": [
+    {
+      "method": "mcp_agent_ollama:llama3.2:1b:T0.0",
+      "n": 1000,
+      "correct": 43,
+      "errors": 957,
+      "failures": {
+        "wrong_answer": 160,
+        "format_failure": 700,
+        "api_error": 97
+      },
+      "accuracy": 4.3,
+      "total_time_s": 1796.7267,
+      "avg_time_per_sample_s": 1.796727,
+      "client": {
+        "avg_cpu_percent": 0.79,
+        "peak_cpu_percent": 99.1,
+        "avg_memory_mb": 47.47,
+        "peak_memory_mb": 79.98,
+        "cpu_seconds": 13.8443
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.79,
+      "peak_cpu_percent": 99.1,
+      "avg_memory_mb": 47.47,
+      "peak_memory_mb": 79.98,
+      "cpu_seconds": 13.8443,
+      "server": {
+        "avg_cpu_percent": 0.49,
+        "peak_cpu_percent": 98.8,
+        "avg_memory_mb": 33.45,
+        "peak_memory_mb": 62.23,
+        "cpu_seconds": 8.5985
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1776355279178,
+        "load_duration_ns": 5669430540,
+        "prompt_eval_count": 678014,
+        "prompt_eval_duration_ns": 185729495979,
+        "eval_count": 168850,
+        "eval_duration_ns": 1571294877881
+      },
+      "ollama_tokens_per_sec": 107.46,
+      "agent": {
+        "llm_turns": 2632,
+        "tool_calls": 1729,
+        "tool_errors": 152,
+        "no_tool_answers": 41,
+        "max_steps_exceeded": 97
+      },
+      "avg_tool_calls": 1.729,
+      "avg_llm_turns": 2.632,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:llama3.2:1b:T0.7",
+      "n": 1000,
+      "correct": 80,
+      "errors": 920,
+      "failures": {
+        "wrong_answer": 191,
+        "format_failure": 641,
+        "api_error": 88
+      },
+      "accuracy": 8.0,
+      "total_time_s": 1550.0299,
+      "avg_time_per_sample_s": 1.55003,
+      "client": {
+        "avg_cpu_percent": 0.68,
+        "peak_cpu_percent": 109.8,
+        "avg_memory_mb": 41.49,
+        "peak_memory_mb": 44.11,
+        "cpu_seconds": 10.4011
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.68,
+      "peak_cpu_percent": 109.8,
+      "avg_memory_mb": 41.49,
+      "peak_memory_mb": 44.11,
+      "cpu_seconds": 10.4011,
+      "server": {
+        "avg_cpu_percent": 0.56,
+        "peak_cpu_percent": 104.2,
+        "avg_memory_mb": 34.32,
+        "peak_memory_mb": 66.41,
+        "cpu_seconds": 8.4144
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1533047239577,
+        "load_duration_ns": 3435780203,
+        "prompt_eval_count": 659358,
+        "prompt_eval_duration_ns": 181658094980,
+        "eval_count": 140963,
+        "eval_duration_ns": 1306645678924
+      },
+      "ollama_tokens_per_sec": 107.88,
+      "agent": {
+        "llm_turns": 2530,
+        "tool_calls": 1620,
+        "tool_errors": 189,
+        "no_tool_answers": 61,
+        "max_steps_exceeded": 88
+      },
+      "avg_tool_calls": 1.62,
+      "avg_llm_turns": 2.53,
+      "temperature": 0.7
+    },
+    {
+      "method": "mcp_agent_ollama:phi4-mini:3.8b:T0.0",
+      "n": 1000,
+      "correct": 663,
+      "errors": 337,
+      "failures": {
+        "wrong_answer": 318,
+        "format_failure": 19,
+        "api_error": 0
+      },
+      "accuracy": 66.3,
+      "total_time_s": 197.0857,
+      "avg_time_per_sample_s": 0.197086,
+      "client": {
+        "avg_cpu_percent": 1.49,
+        "peak_cpu_percent": 96.1,
+        "avg_memory_mb": 43.6,
+        "peak_memory_mb": 43.98,
+        "cpu_seconds": 2.6537
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 1.49,
+      "peak_cpu_percent": 96.1,
+      "avg_memory_mb": 43.6,
+      "peak_memory_mb": 43.98,
+      "cpu_seconds": 2.6537,
+      "server": {
+        "avg_cpu_percent": 0.33,
+        "peak_cpu_percent": 87.4,
+        "avg_memory_mb": 34.72,
+        "peak_memory_mb": 34.72,
+        "cpu_seconds": 0.386
+      },
+      "ollama_timing": {
+        "total_duration_ns": 193782495041,
+        "load_duration_ns": 4446472256,
+        "prompt_eval_count": 268681,
+        "prompt_eval_duration_ns": 94000857000,
+        "eval_count": 4366,
+        "eval_duration_ns": 91051810998
+      },
+      "ollama_tokens_per_sec": 47.95,
+      "agent": {
+        "llm_turns": 1000,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "no_tool_answers": 1000,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 0.0,
+      "avg_llm_turns": 1.0,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:phi4-mini:3.8b:T0.7",
+      "n": 1000,
+      "correct": 631,
+      "errors": 369,
+      "failures": {
+        "wrong_answer": 347,
+        "format_failure": 22,
+        "api_error": 0
+      },
+      "accuracy": 63.1,
+      "total_time_s": 193.5629,
+      "avg_time_per_sample_s": 0.193563,
+      "client": {
+        "avg_cpu_percent": 1.52,
+        "peak_cpu_percent": 98.1,
+        "avg_memory_mb": 43.98,
+        "peak_memory_mb": 43.98,
+        "cpu_seconds": 2.644
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 1.52,
+      "peak_cpu_percent": 98.1,
+      "avg_memory_mb": 43.98,
+      "peak_memory_mb": 43.98,
+      "cpu_seconds": 2.644,
+      "server": {
+        "avg_cpu_percent": 0.37,
+        "peak_cpu_percent": 107.2,
+        "avg_memory_mb": 34.72,
+        "peak_memory_mb": 34.72,
+        "cpu_seconds": 0.3821
+      },
+      "ollama_timing": {
+        "total_duration_ns": 190307546629,
+        "load_duration_ns": 1703167703,
+        "prompt_eval_count": 268681,
+        "prompt_eval_duration_ns": 93035269000,
+        "eval_count": 4376,
+        "eval_duration_ns": 91329258000
+      },
+      "ollama_tokens_per_sec": 47.91,
+      "agent": {
+        "llm_turns": 1000,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "no_tool_answers": 1000,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 0.0,
+      "avg_llm_turns": 1.0,
+      "temperature": 0.7
+    },
+    {
+      "method": "mcp_agent_ollama:llama3.2:3b:T0.0",
+      "n": 1000,
+      "correct": 212,
+      "errors": 788,
+      "failures": {
+        "wrong_answer": 45,
+        "format_failure": 740,
+        "api_error": 3
+      },
+      "accuracy": 21.2,
+      "total_time_s": 1509.9643,
+      "avg_time_per_sample_s": 1.509964,
+      "client": {
+        "avg_cpu_percent": 0.66,
+        "peak_cpu_percent": 107.5,
+        "avg_memory_mb": 40.54,
+        "peak_memory_mb": 44.52,
+        "cpu_seconds": 9.8312
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.66,
+      "peak_cpu_percent": 107.5,
+      "avg_memory_mb": 40.54,
+      "peak_memory_mb": 44.52,
+      "cpu_seconds": 9.8312,
+      "server": {
+        "avg_cpu_percent": 0.45,
+        "peak_cpu_percent": 85.6,
+        "avg_memory_mb": 32.08,
+        "peak_memory_mb": 34.77,
+        "cpu_seconds": 6.549
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1495419377666,
+        "load_duration_ns": 5177939233,
+        "prompt_eval_count": 616325,
+        "prompt_eval_duration_ns": 592813046873,
+        "eval_count": 45450,
+        "eval_duration_ns": 809689758981
+      },
+      "ollama_tokens_per_sec": 56.13,
+      "agent": {
+        "llm_turns": 2412,
+        "tool_calls": 1460,
+        "tool_errors": 110,
+        "no_tool_answers": 5,
+        "max_steps_exceeded": 3
+      },
+      "avg_tool_calls": 1.46,
+      "avg_llm_turns": 2.412,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:llama3.2:3b:T0.7",
+      "n": 1000,
+      "correct": 175,
+      "errors": 825,
+      "failures": {
+        "wrong_answer": 59,
+        "format_failure": 755,
+        "api_error": 11
+      },
+      "accuracy": 17.5,
+      "total_time_s": 1515.9639,
+      "avg_time_per_sample_s": 1.515964,
+      "client": {
+        "avg_cpu_percent": 0.65,
+        "peak_cpu_percent": 111.9,
+        "avg_memory_mb": 40.3,
+        "peak_memory_mb": 42.16,
+        "cpu_seconds": 9.684
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.65,
+      "peak_cpu_percent": 111.9,
+      "avg_memory_mb": 40.3,
+      "peak_memory_mb": 42.16,
+      "cpu_seconds": 9.684,
+      "server": {
+        "avg_cpu_percent": 0.43,
+        "peak_cpu_percent": 23.2,
+        "avg_memory_mb": 31.61,
+        "peak_memory_mb": 33.81,
+        "cpu_seconds": 6.5092
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1501349631893,
+        "load_duration_ns": 3370873812,
+        "prompt_eval_count": 616539,
+        "prompt_eval_duration_ns": 579192849922,
+        "eval_count": 44677,
+        "eval_duration_ns": 796869814974
+      },
+      "ollama_tokens_per_sec": 56.07,
+      "agent": {
+        "llm_turns": 2368,
+        "tool_calls": 1444,
+        "tool_errors": 119,
+        "no_tool_answers": 45,
+        "max_steps_exceeded": 11
+      },
+      "avg_tool_calls": 1.444,
+      "avg_llm_turns": 2.368,
+      "temperature": 0.7
+    },
+    {
+      "method": "mcp_agent_ollama:qwen3.5:4b:T0.0",
+      "n": 1000,
+      "correct": 999,
+      "errors": 1,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 1,
+        "api_error": 0
+      },
+      "accuracy": 99.9,
+      "total_time_s": 6834.426,
+      "avg_time_per_sample_s": 6.834426,
+      "client": {
+        "avg_cpu_percent": 0.19,
+        "peak_cpu_percent": 106.8,
+        "avg_memory_mb": 41.52,
+        "peak_memory_mb": 43.94,
+        "cpu_seconds": 13.1896
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.19,
+      "peak_cpu_percent": 106.8,
+      "avg_memory_mb": 41.52,
+      "peak_memory_mb": 43.94,
+      "cpu_seconds": 13.1896,
+      "server": {
+        "avg_cpu_percent": 0.26,
+        "peak_cpu_percent": 27.6,
+        "avg_memory_mb": 32.76,
+        "peak_memory_mb": 33.95,
+        "cpu_seconds": 17.7927
+      },
+      "ollama_timing": {
+        "total_duration_ns": 6820008827108,
+        "load_duration_ns": 6874643387,
+        "prompt_eval_count": 1316080,
+        "prompt_eval_duration_ns": 1692734530995,
+        "eval_count": 190470,
+        "eval_duration_ns": 5113010836984
+      },
+      "ollama_tokens_per_sec": 37.25,
+      "agent": {
+        "llm_turns": 2236,
+        "tool_calls": 1236,
+        "tool_errors": 0,
+        "no_tool_answers": 1,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 1.236,
+      "avg_llm_turns": 2.236,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:qwen3.5:4b:T0.7",
+      "n": 1000,
+      "correct": 981,
+      "errors": 19,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 19,
+        "api_error": 0
+      },
+      "accuracy": 98.1,
+      "total_time_s": 6849.5105,
+      "avg_time_per_sample_s": 6.849511,
+      "client": {
+        "avg_cpu_percent": 0.17,
+        "peak_cpu_percent": 114.1,
+        "avg_memory_mb": 41.17,
+        "peak_memory_mb": 43.19,
+        "cpu_seconds": 12.7306
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.17,
+      "peak_cpu_percent": 114.1,
+      "avg_memory_mb": 41.17,
+      "peak_memory_mb": 43.19,
+      "cpu_seconds": 12.7306,
+      "server": {
+        "avg_cpu_percent": 0.25,
+        "peak_cpu_percent": 109.7,
+        "avg_memory_mb": 32.33,
+        "peak_memory_mb": 34.41,
+        "cpu_seconds": 17.4149
+      },
+      "ollama_timing": {
+        "total_duration_ns": 6835414018822,
+        "load_duration_ns": 3259457364,
+        "prompt_eval_count": 1308532,
+        "prompt_eval_duration_ns": 1689187666999,
+        "eval_count": 192022,
+        "eval_duration_ns": 5135907864983
+      },
+      "ollama_tokens_per_sec": 37.39,
+      "agent": {
+        "llm_turns": 2224,
+        "tool_calls": 1224,
+        "tool_errors": 0,
+        "no_tool_answers": 8,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 1.224,
+      "avg_llm_turns": 2.224,
+      "temperature": 0.7
+    },
+    {
+      "method": "mcp_agent_ollama:granite4:3b:T0.0",
+      "n": 1000,
+      "correct": 980,
+      "errors": 20,
+      "failures": {
+        "wrong_answer": 17,
+        "format_failure": 3,
+        "api_error": 0
+      },
+      "accuracy": 98.0,
+      "total_time_s": 1126.7916,
+      "avg_time_per_sample_s": 1.126792,
+      "client": {
+        "avg_cpu_percent": 0.77,
+        "peak_cpu_percent": 108.5,
+        "avg_memory_mb": 45.25,
+        "peak_memory_mb": 45.59,
+        "cpu_seconds": 8.5134
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.77,
+      "peak_cpu_percent": 108.5,
+      "avg_memory_mb": 45.25,
+      "peak_memory_mb": 45.59,
+      "cpu_seconds": 8.5134,
+      "server": {
+        "avg_cpu_percent": 0.49,
+        "peak_cpu_percent": 107.0,
+        "avg_memory_mb": 35.12,
+        "peak_memory_mb": 35.23,
+        "cpu_seconds": 5.1831
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1114518334600,
+        "load_duration_ns": 5210824810,
+        "prompt_eval_count": 894962,
+        "prompt_eval_duration_ns": 218272102000,
+        "eval_count": 43964,
+        "eval_duration_ns": 885313573928
+      },
+      "ollama_tokens_per_sec": 49.66,
+      "agent": {
+        "llm_turns": 2194,
+        "tool_calls": 1194,
+        "tool_errors": 0,
+        "no_tool_answers": 1,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 1.194,
+      "avg_llm_turns": 2.194,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:granite4:3b:T0.7",
+      "n": 1000,
+      "correct": 965,
+      "errors": 35,
+      "failures": {
+        "wrong_answer": 22,
+        "format_failure": 13,
+        "api_error": 0
+      },
+      "accuracy": 96.5,
+      "total_time_s": 1126.8472,
+      "avg_time_per_sample_s": 1.126847,
+      "client": {
+        "avg_cpu_percent": 0.77,
+        "peak_cpu_percent": 112.4,
+        "avg_memory_mb": 45.52,
+        "peak_memory_mb": 45.69,
+        "cpu_seconds": 8.5183
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.77,
+      "peak_cpu_percent": 112.4,
+      "avg_memory_mb": 45.52,
+      "peak_memory_mb": 45.69,
+      "cpu_seconds": 8.5183,
+      "server": {
+        "avg_cpu_percent": 0.48,
+        "peak_cpu_percent": 98.2,
+        "avg_memory_mb": 35.32,
+        "peak_memory_mb": 35.42,
+        "cpu_seconds": 5.1742
+      },
+      "ollama_timing": {
+        "total_duration_ns": 1114559024168,
+        "load_duration_ns": 3502322082,
+        "prompt_eval_count": 895422,
+        "prompt_eval_duration_ns": 217541118000,
+        "eval_count": 44070,
+        "eval_duration_ns": 887779901944
+      },
+      "ollama_tokens_per_sec": 49.64,
+      "agent": {
+        "llm_turns": 2195,
+        "tool_calls": 1195,
+        "tool_errors": 0,
+        "no_tool_answers": 1,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 1.195,
+      "avg_llm_turns": 2.195,
+      "temperature": 0.7
+    },
+    {
+      "method": "mcp_agent_ollama:qwen2-math:1.5b:T0.0",
+      "n": 1000,
+      "correct": 0,
+      "errors": 1000,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 1000
+      },
+      "accuracy": 0.0,
+      "total_time_s": 4.6982,
+      "avg_time_per_sample_s": 0.004698,
+      "client": {
+        "avg_cpu_percent": 29.86,
+        "peak_cpu_percent": 111.5,
+        "avg_memory_mb": 74.66,
+        "peak_memory_mb": 79.91,
+        "cpu_seconds": 1.1506
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 29.86,
+      "peak_cpu_percent": 111.5,
+      "avg_memory_mb": 74.66,
+      "peak_memory_mb": 79.91,
+      "cpu_seconds": 1.1506,
+      "server": {
+        "avg_cpu_percent": 6.83,
+        "peak_cpu_percent": 107.8,
+        "avg_memory_mb": 29.27,
+        "peak_memory_mb": 29.3,
+        "cpu_seconds": 0.006
+      },
+      "ollama_timing": {
+        "total_duration_ns": 0,
+        "load_duration_ns": 0,
+        "prompt_eval_count": 0,
+        "prompt_eval_duration_ns": 0,
+        "eval_count": 0,
+        "eval_duration_ns": 0
+      },
+      "ollama_tokens_per_sec": null,
+      "agent": {
+        "llm_turns": 0,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "no_tool_answers": 0,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 0.0,
+      "avg_llm_turns": 0.0,
+      "temperature": 0.0
+    },
+    {
+      "method": "mcp_agent_ollama:qwen2-math:1.5b:T0.7",
+      "n": 1000,
+      "correct": 0,
+      "errors": 1000,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 1000
+      },
+      "accuracy": 0.0,
+      "total_time_s": 4.798,
+      "avg_time_per_sample_s": 0.004798,
+      "client": {
+        "avg_cpu_percent": 28.55,
+        "peak_cpu_percent": 99.9,
+        "avg_memory_mb": 65.14,
+        "peak_memory_mb": 65.14,
+        "cpu_seconds": 1.1356
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 28.55,
+      "peak_cpu_percent": 99.9,
+      "avg_memory_mb": 65.14,
+      "peak_memory_mb": 65.14,
+      "cpu_seconds": 1.1356,
+      "server": {
+        "avg_cpu_percent": 6.47,
+        "peak_cpu_percent": 108.1,
+        "avg_memory_mb": 29.4,
+        "peak_memory_mb": 29.41,
+        "cpu_seconds": 0.0067
+      },
+      "ollama_timing": {
+        "total_duration_ns": 0,
+        "load_duration_ns": 0,
+        "prompt_eval_count": 0,
+        "prompt_eval_duration_ns": 0,
+        "eval_count": 0,
+        "eval_duration_ns": 0
+      },
+      "ollama_tokens_per_sec": null,
+      "agent": {
+        "llm_turns": 0,
+        "tool_calls": 0,
+        "tool_errors": 0,
+        "no_tool_answers": 0,
+        "max_steps_exceeded": 0
+      },
+      "avg_tool_calls": 0.0,
+      "avg_llm_turns": 0.0,
+      "temperature": 0.7
+    },
+    {
+      "method": "vanilla",
+      "n": 1000,
+      "correct": 1000,
+      "errors": 0,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 0
+      },
+      "accuracy": 100.0,
+      "total_time_s": 0.0069,
+      "avg_time_per_sample_s": 7e-06,
+      "client": {
+        "avg_cpu_percent": 111.5,
+        "peak_cpu_percent": 111.5,
+        "avg_memory_mb": 75.8,
+        "peak_memory_mb": 75.8,
+        "cpu_seconds": 0.0104
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 111.5,
+      "peak_cpu_percent": 111.5,
+      "avg_memory_mb": 75.8,
+      "peak_memory_mb": 75.8,
+      "cpu_seconds": 0.0104
+    },
+    {
+      "method": "rest",
+      "n": 1000,
+      "correct": 1000,
+      "errors": 0,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 0
+      },
+      "accuracy": 100.0,
+      "total_time_s": 2.2474,
+      "avg_time_per_sample_s": 0.002247,
+      "client": {
+        "avg_cpu_percent": 55.34,
+        "peak_cpu_percent": 107.3,
+        "avg_memory_mb": 77.18,
+        "peak_memory_mb": 77.22,
+        "cpu_seconds": 1.0782
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 55.34,
+      "peak_cpu_percent": 107.3,
+      "avg_memory_mb": 77.18,
+      "peak_memory_mb": 77.22,
+      "cpu_seconds": 1.0782,
+      "server": {
+        "avg_cpu_percent": 36.11,
+        "avg_memory_mb": 42.07,
+        "cpu_seconds": 0.6166,
+        "peak_cpu_percent": 121.9,
+        "peak_memory_mb": 42.16
+      }
+    },
+    {
+      "method": "soap",
+      "n": 1000,
+      "correct": 1000,
+      "errors": 0,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 0
+      },
+      "accuracy": 100.0,
+      "total_time_s": 2.3952,
+      "avg_time_per_sample_s": 0.002395,
+      "client": {
+        "avg_cpu_percent": 53.64,
+        "peak_cpu_percent": 99.9,
+        "avg_memory_mb": 76.84,
+        "peak_memory_mb": 76.89,
+        "cpu_seconds": 1.1219
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 53.64,
+      "peak_cpu_percent": 99.9,
+      "avg_memory_mb": 76.84,
+      "peak_memory_mb": 76.89,
+      "cpu_seconds": 1.1219,
+      "server": {
+        "avg_cpu_percent": 38.04,
+        "avg_memory_mb": 42.85,
+        "cpu_seconds": 0.6609,
+        "peak_cpu_percent": 124.5,
+        "peak_memory_mb": 42.98
+      }
+    },
+    {
+      "method": "mcp",
+      "n": 1000,
+      "correct": 1000,
+      "errors": 0,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 0,
+        "api_error": 0
+      },
+      "accuracy": 100.0,
+      "total_time_s": 2.2499,
+      "avg_time_per_sample_s": 0.00225,
+      "client": {
+        "avg_cpu_percent": 60.79,
+        "peak_cpu_percent": 113.5,
+        "avg_memory_mb": 82.51,
+        "peak_memory_mb": 82.95,
+        "cpu_seconds": 1.2016
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 60.79,
+      "peak_cpu_percent": 113.5,
+      "avg_memory_mb": 82.51,
+      "peak_memory_mb": 82.95,
+      "cpu_seconds": 1.2016,
+      "server": {
+        "avg_cpu_percent": 46.92,
+        "peak_cpu_percent": 104.5,
+        "avg_memory_mb": 30.65,
+        "peak_memory_mb": 31.41,
+        "cpu_seconds": 0.963
+      }
+    },
+    {
+      "method": "ollama_llm:llama3.2:1b:T0.0",
+      "n": 1000,
+      "correct": 446,
+      "errors": 554,
+      "failures": {
+        "wrong_answer": 540,
+        "format_failure": 14,
+        "api_error": 0
+      },
+      "accuracy": 44.6,
+      "total_time_s": 62.6396,
+      "avg_time_per_sample_s": 0.06264,
+      "client": {
+        "avg_cpu_percent": 4.34,
+        "peak_cpu_percent": 106.0,
+        "avg_memory_mb": 47.6,
+        "peak_memory_mb": 76.39,
+        "cpu_seconds": 2.4055
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 4.34,
+      "peak_cpu_percent": 106.0,
+      "avg_memory_mb": 47.6,
+      "peak_memory_mb": 76.39,
+      "cpu_seconds": 2.4055,
+      "ollama_timing": {
+        "total_duration_ns": 58336888079,
+        "load_duration_ns": 3706321278,
+        "prompt_eval_count": 55681,
+        "prompt_eval_duration_ns": 34440619941,
+        "eval_count": 2557,
+        "eval_duration_ns": 18677568993
+      },
+      "ollama_tokens_per_sec": 136.9,
+      "temperature": 0.0
+    },
+    {
+      "method": "ollama_llm:llama3.2:1b:T0.7",
+      "n": 1000,
+      "correct": 425,
+      "errors": 575,
+      "failures": {
+        "wrong_answer": 567,
+        "format_failure": 8,
+        "api_error": 0
+      },
+      "accuracy": 42.5,
+      "total_time_s": 60.7219,
+      "avg_time_per_sample_s": 0.060722,
+      "client": {
+        "avg_cpu_percent": 5.34,
+        "peak_cpu_percent": 110.7,
+        "avg_memory_mb": 34.52,
+        "peak_memory_mb": 36.44,
+        "cpu_seconds": 2.9227
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 5.34,
+      "peak_cpu_percent": 110.7,
+      "avg_memory_mb": 34.52,
+      "peak_memory_mb": 36.44,
+      "cpu_seconds": 2.9227,
+      "ollama_timing": {
+        "total_duration_ns": 55641521164,
+        "load_duration_ns": 1578402971,
+        "prompt_eval_count": 55681,
+        "prompt_eval_duration_ns": 34040647946,
+        "eval_count": 2590,
+        "eval_duration_ns": 18609967989
+      },
+      "ollama_tokens_per_sec": 139.17,
+      "temperature": 0.7
+    },
+    {
+      "method": "ollama_llm:qwen2-math:1.5b:T0.0",
+      "n": 1000,
+      "correct": 0,
+      "errors": 1000,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 1000,
+        "api_error": 0
+      },
+      "accuracy": 0.0,
+      "total_time_s": 1658.2064,
+      "avg_time_per_sample_s": 1.658206,
+      "client": {
+        "avg_cpu_percent": 0.31,
+        "peak_cpu_percent": 103.4,
+        "avg_memory_mb": 25.17,
+        "peak_memory_mb": 35.08,
+        "cpu_seconds": 4.8262
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.31,
+      "peak_cpu_percent": 103.4,
+      "avg_memory_mb": 25.17,
+      "peak_memory_mb": 35.08,
+      "cpu_seconds": 4.8262,
+      "ollama_timing": {
+        "total_duration_ns": 1650690648443,
+        "load_duration_ns": 3366812156,
+        "prompt_eval_count": 38528,
+        "prompt_eval_duration_ns": 56032779990,
+        "eval_count": 131815,
+        "eval_duration_ns": 1587448426986
+      },
+      "ollama_tokens_per_sec": 83.04,
+      "temperature": 0.0
+    },
+    {
+      "method": "ollama_llm:qwen2-math:1.5b:T0.7",
+      "n": 1000,
+      "correct": 0,
+      "errors": 1000,
+      "failures": {
+        "wrong_answer": 0,
+        "format_failure": 1000,
+        "api_error": 0
+      },
+      "accuracy": 0.0,
+      "total_time_s": 1772.8119,
+      "avg_time_per_sample_s": 1.772812,
+      "client": {
+        "avg_cpu_percent": 0.33,
+        "peak_cpu_percent": 84.8,
+        "avg_memory_mb": 25.17,
+        "peak_memory_mb": 27.52,
+        "cpu_seconds": 5.4696
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 0.33,
+      "peak_cpu_percent": 84.8,
+      "avg_memory_mb": 25.17,
+      "peak_memory_mb": 27.52,
+      "cpu_seconds": 5.4696,
+      "ollama_timing": {
+        "total_duration_ns": 1764212787692,
+        "load_duration_ns": 2002612871,
+        "prompt_eval_count": 38528,
+        "prompt_eval_duration_ns": 34838970000,
+        "eval_count": 141377,
+        "eval_duration_ns": 1716188490985
+      },
+      "ollama_tokens_per_sec": 82.38,
+      "temperature": 0.7
+    },
+    {
+      "method": "ollama_llm:phi4-mini:3.8b:T0.0",
+      "n": 1000,
+      "correct": 818,
+      "errors": 182,
+      "failures": {
+        "wrong_answer": 177,
+        "format_failure": 5,
+        "api_error": 0
+      },
+      "accuracy": 81.8,
+      "total_time_s": 205.2912,
+      "avg_time_per_sample_s": 0.205291,
+      "client": {
+        "avg_cpu_percent": 2.02,
+        "peak_cpu_percent": 111.7,
+        "avg_memory_mb": 29.05,
+        "peak_memory_mb": 29.55,
+        "cpu_seconds": 3.8224
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.02,
+      "peak_cpu_percent": 111.7,
+      "avg_memory_mb": 29.05,
+      "peak_memory_mb": 29.55,
+      "cpu_seconds": 3.8224,
+      "ollama_timing": {
+        "total_duration_ns": 198109889914,
+        "load_duration_ns": 4929088334,
+        "prompt_eval_count": 32681,
+        "prompt_eval_duration_ns": 103998380000,
+        "eval_count": 4116,
+        "eval_duration_ns": 86947859000
+      },
+      "ollama_tokens_per_sec": 47.34,
+      "temperature": 0.0
+    },
+    {
+      "method": "ollama_llm:phi4-mini:3.8b:T0.7",
+      "n": 1000,
+      "correct": 820,
+      "errors": 180,
+      "failures": {
+        "wrong_answer": 178,
+        "format_failure": 2,
+        "api_error": 0
+      },
+      "accuracy": 82.0,
+      "total_time_s": 197.998,
+      "avg_time_per_sample_s": 0.197998,
+      "client": {
+        "avg_cpu_percent": 2.12,
+        "peak_cpu_percent": 112.8,
+        "avg_memory_mb": 26.65,
+        "peak_memory_mb": 27.31,
+        "cpu_seconds": 3.8622
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.12,
+      "peak_cpu_percent": 112.8,
+      "avg_memory_mb": 26.65,
+      "peak_memory_mb": 27.31,
+      "cpu_seconds": 3.8622,
+      "ollama_timing": {
+        "total_duration_ns": 191636031999,
+        "load_duration_ns": 1815943168,
+        "prompt_eval_count": 32681,
+        "prompt_eval_duration_ns": 101535717000,
+        "eval_count": 4047,
+        "eval_duration_ns": 86048823999
+      },
+      "ollama_tokens_per_sec": 47.03,
+      "temperature": 0.7
+    },
+    {
+      "method": "ollama_llm:llama3.2:3b:T0.0",
+      "n": 1000,
+      "correct": 743,
+      "errors": 257,
+      "failures": {
+        "wrong_answer": 249,
+        "format_failure": 8,
+        "api_error": 0
+      },
+      "accuracy": 74.3,
+      "total_time_s": 157.2693,
+      "avg_time_per_sample_s": 0.157269,
+      "client": {
+        "avg_cpu_percent": 2.65,
+        "peak_cpu_percent": 105.8,
+        "avg_memory_mb": 27.16,
+        "peak_memory_mb": 27.33,
+        "cpu_seconds": 3.8487
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.65,
+      "peak_cpu_percent": 105.8,
+      "avg_memory_mb": 27.16,
+      "peak_memory_mb": 27.33,
+      "cpu_seconds": 3.8487,
+      "ollama_timing": {
+        "total_duration_ns": 151498906457,
+        "load_duration_ns": 3798983450,
+        "prompt_eval_count": 55681,
+        "prompt_eval_duration_ns": 88956063000,
+        "eval_count": 3574,
+        "eval_duration_ns": 57231686885
+      },
+      "ollama_tokens_per_sec": 62.45,
+      "temperature": 0.0
+    },
+    {
+      "method": "ollama_llm:llama3.2:3b:T0.7",
+      "n": 1000,
+      "correct": 731,
+      "errors": 269,
+      "failures": {
+        "wrong_answer": 261,
+        "format_failure": 8,
+        "api_error": 0
+      },
+      "accuracy": 73.1,
+      "total_time_s": 153.0367,
+      "avg_time_per_sample_s": 0.153037,
+      "client": {
+        "avg_cpu_percent": 2.72,
+        "peak_cpu_percent": 108.0,
+        "avg_memory_mb": 27.39,
+        "peak_memory_mb": 27.39,
+        "cpu_seconds": 3.8511
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.72,
+      "peak_cpu_percent": 108.0,
+      "avg_memory_mb": 27.39,
+      "peak_memory_mb": 27.39,
+      "cpu_seconds": 3.8511,
+      "ollama_timing": {
+        "total_duration_ns": 147376335883,
+        "load_duration_ns": 1852716423,
+        "prompt_eval_count": 55681,
+        "prompt_eval_duration_ns": 88568883000,
+        "eval_count": 3504,
+        "eval_duration_ns": 55491025879
+      },
+      "ollama_tokens_per_sec": 63.15,
+      "temperature": 0.7
+    },
+    {
+      "method": "ollama_llm:granite4:3b:T0.0",
+      "n": 1000,
+      "correct": 929,
+      "errors": 71,
+      "failures": {
+        "wrong_answer": 66,
+        "format_failure": 5,
+        "api_error": 0
+      },
+      "accuracy": 92.9,
+      "total_time_s": 153.5094,
+      "avg_time_per_sample_s": 0.153509,
+      "client": {
+        "avg_cpu_percent": 2.69,
+        "peak_cpu_percent": 106.2,
+        "avg_memory_mb": 25.2,
+        "peak_memory_mb": 27.42,
+        "cpu_seconds": 3.819
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.69,
+      "peak_cpu_percent": 106.2,
+      "avg_memory_mb": 25.2,
+      "peak_memory_mb": 27.42,
+      "cpu_seconds": 3.819,
+      "ollama_timing": {
+        "total_duration_ns": 147129832679,
+        "load_duration_ns": 4751982509,
+        "prompt_eval_count": 60681,
+        "prompt_eval_duration_ns": 101171440000,
+        "eval_count": 2558,
+        "eval_duration_ns": 39101943993
+      },
+      "ollama_tokens_per_sec": 65.42,
+      "temperature": 0.0
+    },
+    {
+      "method": "ollama_llm:granite4:3b:T0.7",
+      "n": 1000,
+      "correct": 926,
+      "errors": 74,
+      "failures": {
+        "wrong_answer": 69,
+        "format_failure": 5,
+        "api_error": 0
+      },
+      "accuracy": 92.6,
+      "total_time_s": 151.3122,
+      "avg_time_per_sample_s": 0.151312,
+      "client": {
+        "avg_cpu_percent": 2.83,
+        "peak_cpu_percent": 109.2,
+        "avg_memory_mb": 27.32,
+        "peak_memory_mb": 28.83,
+        "cpu_seconds": 3.9651
+      },
+      "power": {
+        "avg_cpu_power_mw": null,
+        "peak_cpu_power_mw": null
+      },
+      "avg_cpu_percent": 2.83,
+      "peak_cpu_percent": 109.2,
+      "avg_memory_mb": 27.32,
+      "peak_memory_mb": 28.83,
+      "cpu_seconds": 3.9651,
+      "ollama_timing": {
+        "total_duration_ns": 144915652340,
+        "load_duration_ns": 2663671455,
+        "prompt_eval_count": 60681,
+        "prompt_eval_duration_ns": 100262928000,
+        "eval_count": 2639,
+        "eval_duration_ns": 39960197988
+      },
+      "ollama_tokens_per_sec": 66.04,
+      "temperature": 0.7
+    }
+  ]
+}

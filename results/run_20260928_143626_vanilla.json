@@ -1,0 +1,30 @@
+{
+  "method": "vanilla",
+  "n": 1000,
+  "correct": 1000,
+  "errors": 0,
+  "failures": {
+    "wrong_answer": 0,
+    "format_failure": 0,
+    "api_error": 0
+  },
+  "accuracy": 100.0,
+  "total_time_s": 0.0069,
+  "avg_time_per_sample_s": 7e-06,
+  "client": {
+    "avg_cpu_percent": 111.5,
+    "peak_cpu_percent": 111.5,
+    "avg_memory_mb": 75.8,
+    "peak_memory_mb": 75.8,
+    "cpu_seconds": 0.0104
+  },
+  "power": {
+    "avg_cpu_power_mw": null,
+    "peak_cpu_power_mw": null
+  },
+  "avg_cpu_percent": 111.5,
+  "peak_cpu_percent": 111.5,
+  "avg_memory_mb": 75.8,
+  "peak_memory_mb": 75.8,
+  "cpu_seconds": 0.0104
+}

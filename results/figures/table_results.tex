@@ -1,0 +1,45 @@
+\begin{table*}[t]
+\centering
+\begin{tabular}{lccccccc}
+\hline
+\small
+\textbf{Method}  & \textbf{Acc. (\%)} & \textbf{T.Time(s)} & \textbf{Avg.Time/Smpl(ms)} & \textbf{Time$\times$} & \textbf{Process Cost(s)} & \textbf{Cost$\times$} \\
+\hline
+\multicolumn{7}{l}{\textit{Function Calling (deterministic)}} \\
+\hline
+Function Calling* & 100\% & \textbf{0.0069} & \textbf{0.007} & 1$\times$ & \textbf{0.0104} & 1$\times$ \\
+REST & 100\% & 2.25 & 2.25 & 326$\times$ & 1.0782 & 104$\times$ \\
+SOAP & 100\% & 2.40 & 2.40 & 347$\times$ & 1.1219 & 108$\times$ \\
+MCP & 100\% & 2.25 & 2.25 & 326$\times$ & 1.2016 & 116$\times$ \\
+\hline
+\multicolumn{7}{l}{\textit{Direct invocation (LLM)}} \\
+\hline
+API (gpt-oss-20b)$^\dagger$ & 15.5\% & 306.35 & 306.35 & 44{,}399$\times$ & n/a & n/a \\
+Llama3.2-1B (T=0) & 44.6\% & 62.64 & 62.64 & 9{,}078$\times$ & 53.12 & 5{,}108$\times$ \\
+Llama3.2-1B (T=0.7) & 42.5\% & 60.72 & 60.72 & 8{,}800$\times$ & 52.65 & 5{,}063$\times$ \\
+Llama3.2-3B (T=0) & 74.3\% & 157.27 & 157.27 & 22{,}793$\times$ & 146.19 & 14{,}057$\times$ \\
+Llama3.2-3B (T=0.7) & 73.1\% & 153.04 & 153.04 & 22{,}179$\times$ & 144.06 & 13{,}852$\times$ \\
+Phi4-mini-3.8B (T=0) & 81.8\% & 205.29 & 205.29 & 29{,}752$\times$ & 190.95 & 18{,}360$\times$ \\
+Phi4-mini-3.8B (T=0.7) & 82.0\% & 198.00 & 198.00 & 28{,}695$\times$ & 187.58 & 18{,}037$\times$ \\
+Granite4-3B (T=0) & 92.9\% & 153.51 & 153.51 & 22{,}248$\times$ & 140.27 & 13{,}488$\times$ \\
+Granite4-3B (T=0.7) & 92.6\% & 151.31 & 151.31 & 21{,}929$\times$ & 140.22 & 13{,}483$\times$ \\
+Qwen2-Math-1.5B (T=0) & 0.0\% & 1658.21 & 1658.21 & 240{,}320$\times$ & 1643.48 & 158{,}027$\times$ \\
+Qwen2-Math-1.5B (T=0.7) & 0.0\% & 1772.81 & 1772.81 & 256{,}929$\times$ & 1751.03 & 168{,}368$\times$ \\
+\hline
+\multicolumn{7}{l}{\textit{LLM + Tools (MCP)}} \\
+\hline
+Llama3.2-1B (T=0) & 4.3\% & 1796.73 & 1796.73 & 260{,}395$\times$ & 1757.02 & 168{,}945$\times$ \\
+Llama3.2-1B (T=0.7) & 8.0\% & 1550.03 & 1550.03 & 224{,}642$\times$ & 1488.30 & 143{,}106$\times$ \\
+Llama3.2-3B (T=0) & 21.2\% & 1509.96 & 1509.96 & 218{,}835$\times$ & 1402.50 & 134{,}856$\times$ \\
+Llama3.2-3B (T=0.7) & 17.5\% & 1515.96 & 1515.96 & 219{,}705$\times$ & 1376.06 & 132{,}314$\times$ \\
+Phi4-mini-3.8B (T=0) & 66.3\% & 197.09 & 197.09 & 28{,}563$\times$ & 185.05 & 17{,}794$\times$ \\
+Phi4-mini-3.8B (T=0.7) & 63.1\% & 193.56 & 193.56 & 28{,}053$\times$ & 184.36 & 17{,}727$\times$ \\
+Granite4-3B (T=0) & 98.0\% & 1126.79 & 1126.79 & 163{,}303$\times$ & 1103.59 & 106{,}114$\times$ \\
+Granite4-3B (T=0.7) & 96.5\% & 1126.85 & 1126.85 & 163{,}311$\times$ & 1105.32 & 106{,}281$\times$ \\
+Qwen3.5-4B (T=0) & 99.9\% & 6834.43 & 6834.43 & 990{,}497$\times$ & 6805.75 & 654{,}399$\times$ \\
+Qwen3.5-4B (T=0.7) & 98.1\% & 6849.51 & 6849.51 & 992{,}683$\times$ & 6825.10 & 656{,}259$\times$ \\
+\hline
+\end{tabular}
+\caption{Benchmark results across all evaluation methods on 1{,}000 equations. Times $\geq$1s are shown to two decimal places. \textbf{Time$\times$} and \textbf{Cost$\times$} report the slowdown/overhead factor relative to the Function Calling baseline (Total Time and Processor Runtime columns, respectively). For local Ollama models, Processor Runtime is Ollama's own self-reported inference compute time (prompt processing + generation duration) and reflects both CPU and GPU execution; for LLM + Tools it is summed over every LLM turn of an equation. \textbf{LLM + Tools} gives each model four MCP tools (add, subtract, multiply, divide) to call instead of computing the answer itself. Qwen2-Math-1.5B does not support tool calling and appears only under direct invocation; Qwen3.5-4B appears only with tools, as answering directly it frequently exceeded the 30\,s request timeout. API invocation cost 39{,}180 tokens in total (15{,}571 prompt + 23{,}609 completion). \textit{*Function Calling is the baseline against which the other methods are compared.}}
+\label{tab:results}
+\end{table*}
