@@ -1,7 +1,7 @@
 """
 SOAP Calculator Server
 Handles add, subtract, multiply, divide via raw SOAP XML over HTTP.
-Runs on port 8000 to avoid conflict with REST server (port 5000).
+Runs on port 8000 to avoid conflict with REST server (port 5001).
 Also exposes /metrics so the benchmark can measure server-side CPU/memory
 cost separately from client-side cost.
 """
@@ -153,6 +153,9 @@ def calculator():
 
 @app.route("/metrics", methods=["GET"])
 def metrics():
+    # stop() records the end CPU time, which stats() needs for cpu_seconds.
+    # The benchmark reads /metrics once at the end of a run, then resets.
+    monitor.stop()
     return jsonify(monitor.stats())
 
 

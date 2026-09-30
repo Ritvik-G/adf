@@ -44,6 +44,9 @@ def divide():
 
 @app.route('/metrics', methods=['GET'])
 def metrics():
+    # stop() records the end CPU time, which stats() needs for cpu_seconds.
+    # The benchmark reads /metrics once at the end of a run, then resets.
+    monitor.stop()
     return jsonify(monitor.stats())
 
 
@@ -55,7 +58,9 @@ def metrics_reset():
 
 
 if __name__ == '__main__':
-    print("Starting Flask server on http://localhost:5000")
+    print("Starting Flask server on http://localhost:5001")
     # debug=False: Flask's debug reloader forks a child process, which would
     # make the /metrics numbers measure the wrong process.
-    app.run(debug=False, port=5000, threaded=True)
+    # Not 5000: on macOS the AirPlay Receiver already listens there and
+    # answers every request with 403.
+    app.run(debug=False, port=5001, threaded=True)

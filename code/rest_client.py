@@ -25,7 +25,7 @@ def make_rest_call(api_base_url, operation, a, b, verbose=True):
         raise
 
 
-def evaluate_expression(expression, api_base_url="http://localhost:5000", verbose=True):
+def evaluate_expression(expression, api_base_url="http://localhost:5001", verbose=True):
     """
     Evaluate expression by repeatedly finding and solving innermost operations
 
