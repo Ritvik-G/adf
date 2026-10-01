@@ -1,0 +1,27 @@
+cff-version: 1.2.0
+message: "If you use this code or its results, please cite the paper below."
+title: "Architectural Decision Framework (ADF)"
+type: software
+license: MIT
+repository-code: "https://github.com/Ritvik-G/adf"
+authors:
+  - given-names: Ritvik
+    family-names: Garimella
+    affiliation: "Artificial Intelligence Institute, University of South Carolina"
+  - given-names: Biplav
+    family-names: Srivastava
+    affiliation: "Artificial Intelligence Institute, University of South Carolina"
+  - given-names: Amit
+    family-names: Sheth
+    affiliation: "Artificial Intelligence Institute, University of South Carolina"
+preferred-citation:
+  type: article
+  title: "Doing Less with More: A First-Principles Exploration of the Suitability of Agentic Computing over Alternative Architectural Choices"
+  authors:
+    - given-names: Ritvik
+      family-names: Garimella
+    - given-names: Biplav
+      family-names: Srivastava
+    - given-names: Amit
+      family-names: Sheth
+  year: 2026

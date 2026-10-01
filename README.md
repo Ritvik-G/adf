@@ -157,3 +157,7 @@ The paper's results were produced on an Apple M1 Pro with 16 GB of RAM, running 
 
 - `data/train.json`, `data/test.json`: the 1,000 SVAMP equations (`Equation`, `Answer`), combined for every run. Each equation has at most two operations, 1.236 on average.
 - The cloud API row in the paper (gpt-oss-20b, 15.5% accuracy, 306.35 s) comes from an earlier run of the Groq method. Its result file is not in the repo, so `paper_figures.py` sets those two values in the `API_BASELINE` constant.
+
+## License and citation
+
+The code is released under the [MIT License](LICENSE). If you use it or its results, please cite the paper; GitHub's "Cite this repository" button (from [`CITATION.cff`](CITATION.cff)) provides the reference.
